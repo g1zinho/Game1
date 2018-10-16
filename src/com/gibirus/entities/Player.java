@@ -35,20 +35,20 @@ public class Player extends Entity {
 	public void tick() {
 		moved = false;
 		
-		if(right) {
+		if(right && World.isFree((int)(x+speed), this.getY())) {
 			moved = true;
 			dir = right_dir;
 			x+=speed;
-		}else if(left) {
+		}else if(left  && World.isFree((int)(x-speed), this.getY())) {
 			moved = true;
 			dir = left_dir;
 			x-=speed;
 		}
-		if(up) {
+		if(up  && World.isFree(this.getX(), (int)(y-speed))) {
 			moved = true;
 			y-=speed;
 			
-		}else if(down) {
+		}else if(down  && World.isFree(this.getX(), (int)(y+speed))) {
 			moved = true;
 			y+=speed;
 		}
@@ -67,6 +67,10 @@ public class Player extends Entity {
 		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, World.HEIGHT *18 - Game.HEIGHT);
 	}
 	
+	public boolean isColliding() {
+		return down;
+		
+	}
 	
 	public void render(Graphics g) {
 		if(dir == right_dir){
