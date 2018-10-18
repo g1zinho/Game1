@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import com.gibirus.entities.Bullet;
 import com.gibirus.entities.Enemy;
 import com.gibirus.entities.Entity;
+import com.gibirus.entities.Lifepack;
 import com.gibirus.entities.Weapon;
 import com.gibirus.main.Game;
 
@@ -46,14 +47,16 @@ public class World {
 						Game.player.setY(yy*16);
 					}else if(pixelAtual == 0xFFFF0000) {
 						//enemy
-						Game.entities.add(new Enemy(xx*16,yy*16, 16 ,16, Entity.ENEMY_EN) );
+						Enemy en = new Enemy(xx*16,yy*16, 16 ,16, Entity.ENEMY_EN);
+						Game.entities.add(en);
+						Game.enemies.add(en);
 					}else if(pixelAtual == 0xFF00FFFF) {
 						//weapon
 						Game.entities.add(new Weapon(xx*16,yy*16, 16 ,16, Entity.WEAPON_EN) );
 
 					}else if(pixelAtual == 0xFF4CFF00) {
 						//life pack
-						Game.entities.add(new Enemy(xx*16,yy*16, 16 ,16, Entity.LIFEPACK_EN) );
+						Game.entities.add(new Lifepack(xx*16,yy*16, 16 ,16, Entity.LIFEPACK_EN) );
 					}else if(pixelAtual == 0xFFFFD800) {
 						
 						Game.entities.add(new Bullet(xx*16,yy*16, 16 ,16, Entity.BULLET_EN) );
