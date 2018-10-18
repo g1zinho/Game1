@@ -15,6 +15,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import com.gibiris.graficos.Spritesheet;
+import com.gibiris.graficos.UI;
 import com.gibirus.entities.Enemy;
 import com.gibirus.entities.Entity;
 import com.gibirus.entities.Player;
@@ -31,7 +32,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private boolean isRunnig = true;
 	public final static int WIDTH = 240;
 	public final static int HEIGHT = 160;
-	public final int SCALE = 3;
+	public final int SCALE = 2;
 	
 	private BufferedImage image; 
 	
@@ -43,12 +44,15 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public static Player player;
 
    public static Random rand;	
+   
+   public UI ui;
 	
 	public Game() {
 		rand = new Random();
 		addKeyListener(this);
 		setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
+		ui = new UI();
 		image = new BufferedImage(160,120,BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
@@ -119,6 +123,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			Entity e = entities.get(i);
 			e.render(g);
 		}
+		
+		ui.render(g);
 
 		/***/		
 		g.dispose();
