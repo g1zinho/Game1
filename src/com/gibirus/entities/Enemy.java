@@ -17,13 +17,14 @@ public class Enemy extends Entity{
 	private int frames = 0, maxFrames = 20, index = 0, maxIndex = 1 ;
 	private BufferedImage[] sprites;
 
-	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
+	public Enemy(int x, int y, int width, int height, BufferedImage[] sprite) {
 		super(x, y, width, height, null);
 		sprites = new BufferedImage[2];
-		sprites[0] = Game.spritesheet.getSprite(112, 16, 16, 16);
-		sprites[1] = Game.spritesheet.getSprite(112+16, 16, 16, 16);
+        this.sprites[0] = sprite[0];
+        this.sprites[1] = sprite[1];
 	
 	}
+
 
 	public void tick() {
 		//colisão do player com enimigo
@@ -49,11 +50,12 @@ public class Enemy extends Entity{
 		}else {
 			//estamos colidindo
 			if(Game.rand.nextInt(100) < 10) {
-			Game.player.life-= Game.rand.nextInt(3);
-			if(Game.player.life <= 0) {
+			Player.life-= Game.rand.nextInt(3);
+			if(Player.life <= 0) {
+				System.exit(0);
 				
 			}
-			System.out.println("Vida : " + Game.player.life);
+			System.out.println("Vida : " + Player.life);
 		}
 			}
 			frames++;

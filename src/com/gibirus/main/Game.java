@@ -31,8 +31,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private Thread thread;
 	private boolean isRunnig = true;
 	public final static int WIDTH = 240;
-	public final static int HEIGHT = 160;
-	public final int SCALE = 2;
+	public final static int HEIGHT = 180;
+	public final int SCALE = 3;
 	
 	private BufferedImage image; 
 	
@@ -46,14 +46,13 @@ public class Game extends Canvas implements Runnable, KeyListener{
    public static Random rand;	
    
    public UI ui;
-	
-	public Game() {
+	 	public Game() {
 		rand = new Random();
 		addKeyListener(this);
 		setPreferredSize(new Dimension(WIDTH*SCALE, HEIGHT*SCALE));
 		initFrame();
 		ui = new UI();
-		image = new BufferedImage(160,120,BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
 		spritesheet = new Spritesheet("/spritesheet.png");
@@ -67,7 +66,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	}
 	
 	public void initFrame() {
-		frame = new JFrame("New game");
+		frame = new JFrame("Gam3");
 		frame.add(this);
 		frame.setResizable(false);
 		frame.pack();
@@ -115,7 +114,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		}
 		Graphics g = image.getGraphics();
 		g.setColor(new Color(69,69,69));
-		g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		world.render(g);
 		

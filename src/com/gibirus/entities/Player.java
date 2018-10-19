@@ -13,7 +13,7 @@ public class Player extends Entity {
 	public int dir = right_dir;
 	public double speed = 1.4 ;
 	
-	private int frames = 0, maxFrames = 5, index = 0, maxIndex = 3 ;
+	private int frames = 0, maxFrames = 3, index = 0, maxIndex = 3 ;
 	private boolean moved = false;
 	private BufferedImage[] rightPlayer;
 	private BufferedImage[] leftPlayer;
@@ -64,15 +64,31 @@ public class Player extends Entity {
 					index = 0;
 			}
 		}
+		this.checkCollisionLifePack();
 			
-		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2), 0, World.WIDTH*20 - Game.WIDTH) ;
-		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, World.HEIGHT *18 - Game.HEIGHT);
+		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2), 0, World.WIDTH*16 - Game.WIDTH) ;
+		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, World.HEIGHT *16 - Game.HEIGHT);
 	}
-	
-	public boolean isColliding() {
+
+		
+
+	public boolean checkCollisionLifePack() {
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity atual = Game.entities.get(i);
+			if(atual instanceof Lifepack) {
+				if(Entity.isColliding(this, atual)) {
+					life+=10;
+					if(life > 100)
+						life = 100;
+					Game.entities.remove(atual);
+				}
+			}
+		}
 		return down;
 		
-	}
+		}
+		
+	
 	
 	public void render(Graphics g) {
 		if(dir == right_dir){

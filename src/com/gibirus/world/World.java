@@ -36,7 +36,7 @@ public class World {
 					tiles[xx + (yy * WIDTH)] = new FloorTile(xx*16,yy*16, Tile.TILE_FLOOR);
 					
 					if(pixelAtual == 0xFF000000) {
-						//floor/chão
+						//floor
 						tiles[xx + (yy * WIDTH)] = new FloorTile(xx*16,yy*16, Tile.TILE_FLOOR);		
 					}else if( pixelAtual == 0xFFFFFFFF) {
 						//wall
@@ -47,7 +47,10 @@ public class World {
 						Game.player.setY(yy*16);
 					}else if(pixelAtual == 0xFFFF0000) {
 						//enemy
-						Enemy en = new Enemy(xx*16,yy*16, 16 ,16, Entity.ENEMY_EN);
+						BufferedImage[] buf = new BufferedImage[2];
+						buf[0] = Game.spritesheet.getSprite(112, 16, 16, 16);
+						buf[1] = Game.spritesheet.getSprite(112+16, 16, 16, 16);
+						Enemy en = new Enemy( xx*16,yy*16, 16, 16, buf);
 						Game.entities.add(en);
 						Game.enemies.add(en);
 					}else if(pixelAtual == 0xFF00FFFF) {
@@ -56,7 +59,9 @@ public class World {
 
 					}else if(pixelAtual == 0xFF4CFF00) {
 						//life pack
-						Game.entities.add(new Lifepack(xx*16,yy*16, 16 ,16, Entity.LIFEPACK_EN) );
+						Lifepack pack = new Lifepack(xx*16,yy*16, 16 ,16, Entity.LIFEPACK_EN);
+						pack.SetMask(8, 8, 8, 8);
+						Game.entities.add(pack);
 					}else if(pixelAtual == 0xFFFFD800) {
 						
 						Game.entities.add(new Bullet(xx*16,yy*16, 16 ,16, Entity.BULLET_EN) );
