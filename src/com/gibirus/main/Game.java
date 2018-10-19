@@ -3,6 +3,7 @@ package com.gibirus.main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -31,7 +32,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	private Thread thread;
 	private boolean isRunnig = true;
 	public final static int WIDTH = 240;
-	public final static int HEIGHT = 180;
+	public final static int HEIGHT = 160;
 	public final int SCALE = 3;
 	
 	private BufferedImage image; 
@@ -39,6 +40,7 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	public static List<Entity> entities;
 	public static List<Enemy> enemies;
 	public static Spritesheet spritesheet;
+	
 	public static  World world;
 	
 	public static Player player;
@@ -129,6 +131,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		g.dispose();
       	g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
+		g.setFont(new Font("arial", Font.BOLD,22));
+		g.setColor(Color.WHITE);
+		g.drawString("Ammo:" + player.ammo, 600, 32);
 		bs.show();
 	}
 	

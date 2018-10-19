@@ -50,12 +50,10 @@ public class Enemy extends Entity{
 		}else {
 			//estamos colidindo
 			if(Game.rand.nextInt(100) < 10) {
-			Player.life-= Game.rand.nextInt(3);
-			if(Player.life <= 0) {
-				System.exit(0);
-				
-			}
-			System.out.println("Vida : " + Player.life);
+			Game.player.life-= Game.rand.nextInt(3);
+			Game.player.isDMG = true;
+	
+			//System.out.println("Vida : " + Player.life);
 		}
 			}
 			frames++;
