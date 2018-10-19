@@ -22,6 +22,8 @@ public class Player extends Entity {
 	
 	private BufferedImage playerDMG;
 	
+	private boolean hasGun = false;
+	
 	public int ammo = 0;
 	
 	public boolean isDMG = false;
@@ -75,6 +77,7 @@ public class Player extends Entity {
 		}
 		checkCollisionLifePack();
 		checkCollisionAmmo();
+		checkCollisionGun();
 		
 		if(isDMG) {
 			this.damageFrames++;
@@ -99,6 +102,18 @@ public class Player extends Entity {
 		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT/2), 0, World.HEIGHT *16 - Game.HEIGHT);
 	}
 
+	public void checkCollisionGun() {
+		for(int i = 0; i < Game.entities.size(); i++) {
+			Entity atual = Game.entities.get(i);
+			if(atual instanceof Weapon) {
+				if(Entity.isColliding(this, atual)) {
+					hasGun = true;
+					Game.entities.remove(atual);
+				}
+			}
+		}
+}
+	
 	public void checkCollisionAmmo() {
 			for(int i = 0; i < Game.entities.size(); i++) {
 				Entity atual = Game.entities.get(i);
@@ -134,8 +149,17 @@ public class Player extends Entity {
 		if(!isDMG ) {
 		if(dir == right_dir){
 	      	g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY()  - Camera.y, null);
+	      	if(hasGun) {
+	      		//desenhar arma para direita
+	      		g.drawImage(Entity.GUN_RIGHT, this.getX() + 9 - Camera.x , this.getY() + 1 - Camera.y , null);
+	      		
+	      	}
 		}else if (dir == left_dir) {	
 			g.drawImage(leftPlayer[index], this.getX()  - Camera.x, this.getY()  - Camera.y, null);
+			if(hasGun) {
+				g.drawImage(Entity.GUN_LEFT, this.getX() - 9 - Camera.x , this.getY()  - Camera.y , null);
+				//desenhar arma para esquerda
+			}
 		}
 		
 	}else {
