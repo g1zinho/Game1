@@ -27,7 +27,7 @@ public class Player extends Entity {
 	public boolean isDMG = false;
 	private int damageFrames = 0;
 	
-	public static double life = 100, maxlife = 100;
+	public  double life = 100, maxlife = 100;
 	
 	public Player(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);

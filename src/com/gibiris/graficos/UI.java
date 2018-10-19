@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import com.gibirus.entities.Player;
+import com.gibirus.main.Game;
 
 public class UI {
 	
@@ -12,10 +12,10 @@ public class UI {
 		g.setColor(Color.red);
 		g.fillRect(10, 4, 70, 8);
 		g.setColor(Color.green);
-		g.fillRect(10, 4,(int)((Player.life/Player.maxlife)*70), 8);
+		g.fillRect(10, 4,(int)((Game.player.life/Game.player.maxlife)*70), 8);
 		g.setColor(Color.black);
-		g.setFont(new Font("arial", Font.BOLD, 9));
-		g.drawString((int) Player.life+"/"+(int)Player.maxlife, 30, 12);
+		g.setFont(new Font("arial", Font.PLAIN, 9));
+		g.drawString((int) Game.player.life+"/"+(int)Game.player.maxlife, 30, 12);
 	}
 
 }
