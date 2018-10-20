@@ -29,6 +29,8 @@ public class Player extends Entity {
 	public boolean isDMG = false;
 	private int damageFrames = 0;
 	
+	public boolean shooting = false;
+	
 	public  double life = 100, maxlife = 100;
 	
 	public Player(int x, int y, int width, int height, BufferedImage sprite) {
@@ -85,6 +87,25 @@ public class Player extends Entity {
 				this.damageFrames = 0;
 				isDMG = false;
 			}
+		}
+		
+		if(shooting && hasGun ) {
+			//criar bala e atirar
+			//configuração posição da arma
+			shooting = false;
+			int dx = 0;
+			int px = 0;
+			int py =8;
+			if(dir == right_dir) {
+				px = 8;
+			 dx = 1;
+			}else {
+				px = -8;
+				dx = -1;
+				
+			}
+			Shoot bullet = new Shoot(this.getX()+px, this.getY()+py,3,3,null, dx,0);
+			Game.bullets.add(bullet);
 		}
 		
 		if(life <= 0) {

@@ -20,6 +20,7 @@ import com.gibiris.graficos.UI;
 import com.gibirus.entities.Enemy;
 import com.gibirus.entities.Entity;
 import com.gibirus.entities.Player;
+import com.gibirus.entities.Shoot;
 import com.gibirus.world.World;
 
 public class Game extends Canvas implements Runnable, KeyListener{
@@ -39,7 +40,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 	
 	public static List<Entity> entities;
 	public static List<Enemy> enemies;
+	public static List<Shoot> bullets;
 	public static Spritesheet spritesheet;
+	
 	
 	public static  World world;
 	
@@ -57,6 +60,8 @@ public class Game extends Canvas implements Runnable, KeyListener{
 		image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
+		bullets = new ArrayList<Shoot>();
+		
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0,0,16,16,spritesheet.getSprite(32,0,16,16));
 		entities.add(player);
@@ -106,6 +111,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			}
 			e.tick();
 		}
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).tick();
+		}
 	}
 	public void render() {
 		
@@ -124,7 +132,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			Entity e = entities.get(i);
 			e.render(g);
 		}
-		
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).render(g);
+		}
 		ui.render(g);
 
 		/***/		
@@ -202,6 +212,9 @@ public class Game extends Canvas implements Runnable, KeyListener{
 			
 		}
 		
+		if(e.getKeyCode() == KeyEvent.VK_X) {
+			player.shooting = true;
+		}
 	}
 
 	@Override
