@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import com.gibirus.main.Game;
 import com.gibirus.world.Camera;
 
 public class Shoot  extends Entity{
@@ -12,6 +13,7 @@ public class Shoot  extends Entity{
 	private int dy;
 	private double spd = 4;
 	
+	private int life = 40, curLife = 0;
 	public Shoot(int x, int y, int width, int height, BufferedImage sprite, int dx, int dy) {
 		super(x, y, width, height, sprite);
 		this.dx = dx;
@@ -22,6 +24,11 @@ public class Shoot  extends Entity{
 		
 		x+=dx*spd;
 		y+=dy*spd;
+		curLife++;
+		if(curLife == life) {
+			Game.bullets.remove(this);
+			return;
+		}
 	}
 	
 	public void render(Graphics g) {

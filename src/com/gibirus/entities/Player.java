@@ -89,7 +89,10 @@ public class Player extends Entity {
 			}
 		}
 		
-		if(shooting && hasGun ) {
+		if(shooting) {
+			shooting = false;
+			if(hasGun && ammo > 0  ) {
+			ammo--;
 			//criar bala e atirar
 			//configuração posição da arma
 			shooting = false;
@@ -106,6 +109,7 @@ public class Player extends Entity {
 			}
 			Shoot bullet = new Shoot(this.getX()+px, this.getY()+py,3,3,null, dx,0);
 			Game.bullets.add(bullet);
+		}
 		}
 		
 		if(life <= 0) {
