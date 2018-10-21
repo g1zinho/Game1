@@ -16,10 +16,13 @@ public class Enemy extends Entity{
 	private int maskx = 8, masky = 8, maskw = 6, maskh  = 6;
 	private int frames = 0, maxFrames = 20, index = 0, maxIndex = 1 ;
 	private BufferedImage[] sprites;
+	private int life = 10;
+   private boolean isDMG = false;
+	private int damgeFrames = 10, damageCurrent = 0;
 
 	public Enemy(int x, int y, int width, int height, BufferedImage[] sprite) {
 		super(x, y, width, height, null);
-		sprites = new BufferedImage[2];
+		sprites = new BufferedImage[4];
         this.sprites[0] = sprite[0];
         this.sprites[1] = sprite[1];
 	
@@ -52,7 +55,6 @@ public class Enemy extends Entity{
 			if(Game.rand.nextInt(100) < 10) {
 			Game.player.life-= Game.rand.nextInt(3);
 			Game.player.isDMG = true;
-	
 			//System.out.println("Vida : " + Player.life);
 		}
 			}
@@ -63,7 +65,39 @@ public class Enemy extends Entity{
 				if(index > maxIndex)
 					index = 0;
 			}
+			collidingBullet();
+			if(life <= 0) {
+				destroySelf();
+				return;
+			}
+			if(isDMG) {
+				this.damageCurrent++;
+				if(this.damageCurrent == this.damgeFrames) {
+					this.damageCurrent = 0;
+					this.isDMG = false;
+					
+				}
+				
+			}
 		}
+	
+	public void destroySelf() {
+		Game.entities.remove(this);
+	}
+	public void collidingBullet() {
+		for( int i = 0; i < Game.bullets.size(); i++) {
+			Entity e = Game.bullets.get(i);				
+				if(Entity.isColliding(this, e)) {
+					isDMG = true;
+					life--;
+					Game.bullets.remove(i);
+					
+					return;
+				}
+			}
+		}
+		 
+	
 		
 	public boolean isCollidingWithPlayer() {
 		Rectangle enemyCurrent = new Rectangle(this.getX() + maskx, this.getY() + masky ,  maskw, maskh );		
@@ -89,7 +123,10 @@ public class Enemy extends Entity{
 			
 	}
     public void render(Graphics g) {
+    	if(!isDMG)
     g.drawImage(sprites[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+    	else 
+    		g.drawImage(Entity.ENEMY_FREEDBACK, this.getX() - Camera.x, this.getY() - Camera.y, null);
     }
 	}
 

@@ -123,6 +123,7 @@ public class Player extends Entity {
 			
 				int px = 18, py = 8;
 				double angle = 0;
+				//posição de onde o tiro vai sair
 				if(dir == right_dir) {
 		
 					px = 8;
