@@ -39,6 +39,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public final static int HEIGHT = 160;
 	public final int SCALE = 3;
 	
+	private int CUR_LEVEL = 1, MAX_LEVEL =2;
 	private BufferedImage image; 
 	
 	public static List<Entity> entities;
@@ -69,7 +70,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0,0,16,16,spritesheet.getSprite(32,0,16,16));
 		entities.add(player);
-		world = new 	World("/map.png");
+		world = new 	World("/level1.png");
 		
 		
 		
@@ -110,13 +111,22 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public void tick() {
 		for(int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
-			if( e instanceof Player) {
-				//dando tick no player
-			}
-			e.tick();
+			e.tick();		
+		
 		}
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).tick();
+		}
+		
+		if (enemies.size()== 0) {
+			CUR_LEVEL++ ;
+			if(CUR_LEVEL > MAX_LEVEL) {
+				CUR_LEVEL = 1;
+		
+		}
+		String newWorld = "level" + CUR_LEVEL +".png";
+		System.out.println(newWorld);
+		World.restartGame(newWorld);
 		}
 	}
 	public void render() {
@@ -127,7 +137,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			return;
 		}
 		Graphics g = image.getGraphics();
-		g.setColor(new Color(69,69,69));
+		g.setColor(new Color(0,0,0));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		world.render(g);

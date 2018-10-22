@@ -116,17 +116,13 @@ public class Player extends Entity {
 			//mesma logica para jogos de tiro em 3d só adicionar mais um angulo
 			if(mouseShoot) {
 				mouseShoot = false;
-			
 				if(hasGun && ammo > 0  ) {
 				ammo--;
-				//criar bala e atirar	
-			
-				int px = 18, py = 8;
+				int px = 0, py = 0 ;
 				double angle = 0;
 				//posição de onde o tiro vai sair
 				if(dir == right_dir) {
-		
-					px = 8;
+					px = 18;
 				   angle = Math.atan2 (my - (this.getY()+ py - Camera.y) , mx -(this.getX() + px - Camera.x )  );
 				}else {					
 					px = -8;
@@ -143,14 +139,10 @@ public class Player extends Entity {
 	
 		
 		if(life <= 0) {
-
-			Game.entities = new ArrayList<Entity>();
-			Game.enemies = new ArrayList<Enemy>();
-			Game.spritesheet = new Spritesheet("/spritesheet.png");
-			Game.player = new Player(0,0,16,16,Game.spritesheet.getSprite(32,0,16,16));
-			Game.entities.add(Game.player);
-			Game.world = new 	World("/map.png");
-			return;
+             /*
+			
+			Game Over
+			 */
 		}
 		
 		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH/2), 0, World.WIDTH*16 - Game.WIDTH) ;
